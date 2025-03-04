@@ -2,22 +2,32 @@
 #include <string>
 #include <cmath>
 // You are free to use additional libraries as long as it's not PROHIBITED per instruction.
+#ifndef HASH_H
+#define HASH_H
 
-using namespace std;
-
-int hashFunction(const std::string &s, int k);
+#include <string>
 
 class HashTable {
 public:
-    HashTable(int k);
-    ~HashTable();
-    void insert(const std::string &s);
-    std::vector<std::string> getSlot(int index) const;
-    int getSlotLength(int i) const;
-    int getNumSlots() const;
-    double getStandardDeviation() const;
-    void printFirstFiveSlots() const;
+    struct Node {
+        std::string token;
+        Node* next;
+    };
 
- private:
-    std::vector<std::vector<std::string>> table;
+    explicit HashTable(int k);
+    ~HashTable();
+    void insert(const std::string &token);
+    Node* getSlot(int index) const;
+    int getSlotLength(int index) const;
+    int getNumSlots(int index) const;
+    double getStandardDeviation() const;
+
+private:
+    int numSlots;
+    
+    Node** table;
 };
+
+int hashFunction(const std::string &s, int k);
+
+#endif

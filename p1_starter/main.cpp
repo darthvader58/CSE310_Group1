@@ -13,20 +13,22 @@ using namespace std;
 
 int main() {
 
-    int k = 0;
-    int n = 0;
-    string texts[500];
+    int k = 0;      // Number of slots.
+    int n = 0;      // Number of tokens.
+    std::string texts[500];
 
-    // WARNING: Start of the tokenizer that loads the input from std::cin, DO NOT change this part!
+    // Read number of slots.
     cin >> k;
-    string line;
-    getline(cin, line);
+    std::string line;
+    getline(cin, line); // consume the remainder of the line
 
+    // Read each token (one per line).
     while (getline(cin, line)) {
         texts[n] = line;
         n++;
     }
 
+    // Create a HashTable with k slots.
     HashTable ht(k);
 
     // Insert all tokens into the hash table.
@@ -51,28 +53,27 @@ int main() {
     int limit = (k < 5) ? k : 5;
     for (int i = 0; i < limit; i++) {
         cout << "Slot " << (i + 1) << ":";
-        vector<string> slotData = ht.getSlot(i);
-        for (const auto &s : slotData) {
-            cout << " " << s;
+        // Traverse the linked list for this slot.
+        HashTable::Node* current = ht.getSlot(i);
+        while (current != 0) {
+            cout << " " << current->token;
+            current = current->next;
         }
         cout << endl;
     }
 
-
-    cout << "==== Printing the slot lengths ====" << endl;
+    // Print the slot lengths.
+    cout << "\n==== Printing the slot lengths ====" << endl;
     for (int i = 0; i < limit; i++) {
         cout << "Slot " << (i + 1) << ": " << ht.getSlotLength(i) << endl;
     }
 
     // Print the population standard deviation of slot sizes.
     cout << "\n==== Printing the standard deviation =====" << endl;
-    double stdev = ht.getStandardDeviation();
-    cout << fixed << setprecision(4) << stdev << endl;
+    cout << fixed << setprecision(4) << ht.getStandardDeviation() << endl;
 
-
-    cout << "==== Printing the standard variance =====" << endl;
-    double variance = stdev * stdev;
-    cout << fixed << setprecision(4) << variance << endl;
+    cout << "\n==== Printing the standard variance =====" << endl;
+    cout << fixed << setprecision(4) << (ht.getStandardDeviation()*ht.getStandardDeviation()) << endl;
 
     return 0;
 }
