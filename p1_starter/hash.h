@@ -21,5 +21,3 @@ public:
  private:
     std::vector<std::vector<std::string>> table;
 };
-
-#endif
