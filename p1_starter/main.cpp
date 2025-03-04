@@ -2,7 +2,7 @@
 CSE 310 Hash Function DIY Contest
 Instructor: Yezhou Yang
 Your name(s): Shashwat Raj, Ara 
-Your team alias: 
+Your team alias: 2^0
 */
 
 #include <iostream>
@@ -12,6 +12,11 @@ Your team alias:
 using namespace std;
 
 int main() {
+
+    #ifndef ONLINE_JUDGE
+    freopen("p1_starter/inputs/bertuncased.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
 
     int k = 0;      // Number of slots.
     int n = 0;      // Number of tokens.
